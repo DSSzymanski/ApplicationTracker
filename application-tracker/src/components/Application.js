@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import TextBox from './TextBox';
 
-const Application = () => {
-    const getInitialState = () => {
+const Application = (props) => {
+    const getInitialState = (props) => {
         return {
-            'job-title': "",
+            'job-title': props.count,
             'job-notes': "",
             'company': "",
             'company-notes': "",
@@ -16,7 +16,7 @@ const Application = () => {
             'progress-notes': "",
         }
     }
-    let [ applicationData, setApplicationData ] = useState(getInitialState());
+    let [ applicationData, setApplicationData ] = useState(getInitialState(props));
 
     return (
         <div className="application-div">
