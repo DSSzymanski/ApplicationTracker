@@ -4,7 +4,7 @@ import './TextBox.css'
 const TextBox = ( props ) => {
   return (
     (props.label && props.text) ?
-    <div className='text-box-container' data-testid="TextBox-test-id">
+    <div className='text-box-container'>
         <div className="text-box-label">
             {
               props.label + ":" }
