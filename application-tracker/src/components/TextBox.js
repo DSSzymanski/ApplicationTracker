@@ -1,15 +1,19 @@
 import React from 'react'
+import './TextBox.css'
 
 const TextBox = ( props ) => {
   return (
-    <div className='text-box-container'>
+    (props.label && props.text) ?
+    <div className='text-box-container' data-testid="TextBox-test-id">
         <div className="text-box-label">
-            { props.label }
+            {
+              props.label + ":" }
         </div>
         <div className="text-box-text">
             { props.text }
         </div>
-    </div>
+    </div> :
+    null
   )
 }
 
