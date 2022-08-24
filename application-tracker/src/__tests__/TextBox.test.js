@@ -4,6 +4,7 @@ import TextBox from "../components/TextBox";
 
 test('TextBox renders without crashing.', () => {
     render(<TextBox />);
+    render(<TextBox label='init-label' text='init-text' />)
 });
 
 describe('TextBox missing props should not render', () => {
