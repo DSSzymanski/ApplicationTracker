@@ -30,6 +30,36 @@ describe('TextBoxLink missing props should not render', () => {
     })
 });
 
+describe('TextBoxLink renders with correct links attached.', () => {
+    test('TextBoxLink renders without needing helper function.', () => {
+        const test_working_urls = [
+            'https://www.google.com',
+            'https://jestjs.io/',
+            'https://www.reddit.com/',
+        ]
+        test_working_urls.forEach(url => {
+            const testLabel = Math.random().toString(36).slice(2);
+            render(<TextBoxLink label={ testLabel } url={ url } />);
+            expect(screen.getByText(testLabel, {exact:false})).toBeInTheDocument();
+            expect(screen.getByText(url)).toHaveAttribute('href', url);
+        })
+    })
+
+    test('TextBoxLink renders with helper function.', () => {
+        const test_not_working_urls = {
+            'www.google.com': 'http://www.google.com',
+            'jestjs.io': 'http://jestjs.io',
+            'www.reddit.com': 'http://www.reddit.com',
+        }
+        for (const [key, value] of Object.entries(test_not_working_urls)) {
+            const testLabel = Math.random().toString(36).slice(2);
+            render(<TextBoxLink label={ testLabel } url={ key } />);
+            expect(screen.getByText(testLabel, {exact:false})).toBeInTheDocument();
+            expect(screen.getByText(key)).toHaveAttribute('href', value);
+        }
+    })
+});
+
 describe('Tests for TextBoxLink http helper function.', () => {
     test('Tests function with working urls that should return as inputed.', () => {
         const test_working_urls = [
@@ -60,4 +90,4 @@ describe('Tests for TextBoxLink http helper function.', () => {
             expect(validateHTTP(testUrl)).toEqual('http://' + testUrl);
         }
     })
-})
+});
