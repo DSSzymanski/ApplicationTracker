@@ -12,19 +12,26 @@ import '../component-css/TextBox.css'
  * @returns component.
  */
 const TextBox = ( props ) => {
+  const multilineTB = props.multiline ? props.multiline : false;
+
   //Returns null if label or text is not in props.
   return (
-    (props.label && props.text) ?
-    <div className='text-box-container'>
+    (props.label && props.text) &&
+    <div className={
+      multilineTB ?
+        "text-box-multi-line-container" :
+        "text-box-single-line-container"
+    }>
         <div className="text-box-label">
             {
               props.label + ":" }
         </div>
-        <div className="text-box-text">
+        <div
+          className={ props.multiline ? "multi-line-text-box" : "text-box-text" }
+        >
             { props.text }
         </div>
-    </div> :
-    null
+    </div>
   )
 }
 

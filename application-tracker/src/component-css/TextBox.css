@@ -1,5 +1,13 @@
-.text-box-container {
+.text-box-single-line-container {
     display: flex;
+}
+
+.text-box-multi-line-container {
+    display: block;
+}
+
+.multi-line-text-box {
+    white-space: pre-wrap;
 }
 
 .text-box-text {
