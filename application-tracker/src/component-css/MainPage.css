@@ -1,0 +1,13 @@
+.header-container {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.header {
+    font: 4em sans-serif;
+}
+
+.application-list-div {
+    display: flex;
+}
