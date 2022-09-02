@@ -49,7 +49,65 @@ const Application = (props) => {
 const EditApplication = (props) => {
     return (
         <>
-            edit
+            <div className="input-div">
+                <label htmlFor="job-title">Job Title:</label>
+                <input
+                    type="text"
+                    name="job-title"
+                    defaultValue={props.data['job-title']}
+                />
+            </div>
+            <div className="input-div">
+                <label htmlFor="job-link">Job Link:</label>
+                <input
+                    type="text"
+                    name="job-link"
+                    defaultValue={props.data['job-link']}
+                />
+            </div>
+            <div className="input-div">
+                <label htmlFor="job-notes">Job Notes:</label>
+                <textarea
+                    cols='50'
+                    rows='4'
+                    name="job-notes"
+                    defaultValue={props.data['job-notes']}
+                />
+            </div>
+            <div className="input-div">
+                <label htmlFor="company">Company:</label>
+                <input
+                    type="text"
+                    name="company"
+                    defaultValue={props.data['company']}
+                />
+            </div>
+            <div className="input-div">
+                <label htmlFor="company-notes">Company Notes:</label>
+                <textarea
+                    cols='50'
+                    rows='4'
+                    name="company-notes"
+                    defaultValue={props.data['company-notes']}
+                />
+            </div>
+            <div className="input-div">
+                <label htmlFor="application-status">Application Status:</label>
+                <input
+                    type="text"
+                    name="application-status"
+                    defaultValue={props.data['application-status']}
+                />
+            </div>
+            <div className="input-div">
+                <label htmlFor="application-notes">Application Notes:</label>
+                <textarea
+                    cols='50'
+                    rows='4'
+                    name="application-notes"
+                    defaultValue={props.data['application-notes']}
+                />
+            </div>
         </>
     )
 }
