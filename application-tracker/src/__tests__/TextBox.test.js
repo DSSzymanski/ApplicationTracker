@@ -1,6 +1,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import TextBox from "../components/TextBox";
+import { generateRandomString } from "../javascript/HelperFunctions";
 
 test('TextBox renders without crashing.', () => {
     render(<TextBox />);
@@ -15,7 +16,7 @@ describe('TextBox missing props should not render.', () => {
 
     test('TextBox with only label should not render.', () => {
         for (let i = 0; i < 10; i += 1) {
-            const testLabel = Math.random().toString(36).slice(2);
+            const testLabel = generateRandomString();
             const { container } = render(<TextBox label={ testLabel }/>);
             expect(container).toBeEmptyDOMElement();
         }
@@ -23,7 +24,7 @@ describe('TextBox missing props should not render.', () => {
 
     test('TextBox with only text should not render.', () => {
         for (let i = 0; i < 10; i += 1) {
-            const testText = Math.random().toString(36).slice(2);
+            const testText = generateRandomString();
             const { container } = render(<TextBox text={ testText }/>);
             expect(container).toBeEmptyDOMElement();
         }
@@ -33,8 +34,8 @@ describe('TextBox missing props should not render.', () => {
 describe('TextBox successfull implementation with required props.', () => {
     test('TextBox success using random strings.', () => {
         for (let i = 0; i < 10; i += 1) {
-            const testLabel = Math.random().toString(36).slice(2);
-            const testText = Math.random().toString(36).slice(2);
+            const testLabel = generateRandomString();
+            const testText = generateRandomString();
             const { container } = render(
                 <TextBox
                     label={ testLabel }
@@ -51,8 +52,8 @@ describe('TextBox successfull implementation with required props.', () => {
 describe('TextBox renders correctly using optional props.', () => {
     test('TextBox renders with correct default class.', () => {
         for (let i = 0; i < 1; i += 1) {
-            const testLabel = Math.random().toString(36).slice(2);
-            const testText = Math.random().toString(36).slice(2);
+            const testLabel = generateRandomString();
+            const testText = generateRandomString();
             const { container } = render(
                 <TextBox
                     label={ testLabel }
@@ -70,8 +71,8 @@ describe('TextBox renders correctly using optional props.', () => {
 
     test('TextBox renders correctly when multiline is specified to be false.', () => {
         for (let i = 0; i < 1; i += 1) {
-            const testLabel = Math.random().toString(36).slice(2);
-            const testText = Math.random().toString(36).slice(2);
+            const testLabel = generateRandomString();
+            const testText = generateRandomString();
             const { container } = render(
                 <TextBox
                     label={ testLabel }
@@ -90,8 +91,8 @@ describe('TextBox renders correctly using optional props.', () => {
 
     test('TextBox renders correctly when multiline is specified to be true.', () => {
         for (let i = 0; i < 1; i += 1) {
-            const testLabel = Math.random().toString(36).slice(2);
-            const testText = Math.random().toString(36).slice(2);
+            const testLabel = generateRandomString();
+            const testText = generateRandomString();
             const { container } = render(
                 <TextBox
                     label={ testLabel }
