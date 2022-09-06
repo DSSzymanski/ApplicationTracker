@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import TextBox from './TextBox';
 import TextBoxLink from './TextBoxLink';
+import EditTextBox from './EditTextBox';
+import '../component-css/Application.css';
+import { EditTextArea } from './EditTextArea';
 
 const Application = (props) => {
     const EDIT_TEXT = "Edit";
@@ -18,110 +21,84 @@ const Application = (props) => {
         }
     }
     let [ applicationData, setApplicationData ] = useState(getInitialState(props));
-    let [ buttonText, setButtonText ] = useState(EDIT_TEXT);
+    let [ editMode, setEditMode ] = useState(false);
 
-    let updateButtonText = () => {
-        buttonText === EDIT_TEXT ?
-        setButtonText(SAVE_TEXT) :
-        setButtonText(EDIT_TEXT);
+    let changeEditMode = () => {
+        setEditMode(!editMode);
+    }
+
+    let updateApplicationData = (data) => {
+        setApplicationData(data);
     }
 
     return (
         <div className="application-div">
-            <div className="application-data-div">
-                {
-                    buttonText === SAVE_TEXT ?
-                    <EditApplication data={ applicationData } /> :
-                    <DisplayApplication data={ applicationData } />
-                }
-            </div>
-            <div className="application-button-container">
-                <button
-                    onClick={() => {
-                        updateButtonText();
-                    }}
-                >{ buttonText }</button>
-            </div>
+            {
+                editMode === true ?
+                <EditApplication data={ applicationData } changeViewClick={ changeEditMode } updateDataClick={ updateApplicationData }/> :
+                <DisplayApplication data={ applicationData } changeViewClick={ changeEditMode } />
+            }
         </div>
     )
 }
 
-const EditApplication = (props) => {
+const EditApplication = ({ data, changeViewClick, updateDataClick }) => {
+    const [tentativeData, setTentativeData] = useState(data);
+
+    let updateTentativeData = (dataKey, value) => {
+        setTentativeData(prev => ({
+            ...prev,
+            [dataKey]: value,
+        }))
+    }
+
     return (
         <>
-            <div className="input-div">
-                <label htmlFor="job-title">Job Title:</label>
-                <input
-                    type="text"
-                    name="job-title"
-                    defaultValue={props.data['job-title']}
-                />
+            <div className="application-data-div">
+                <EditTextBox label={ "Job Title:" } dataKey={ 'job-title' } value={ tentativeData['job-title'] } updateFn={ updateTentativeData } />
+                <EditTextBox label={ "Job Link:" } dataKey={ 'job-link' } value={ tentativeData['job-link'] } updateFn={ updateTentativeData } />
+                <EditTextArea label={ "Job Notes:" } dataKey={ 'job-notes' } value={ tentativeData['job-notes'] } updateFn={ updateTentativeData } />
+                <EditTextBox label={ "Company:" } dataKey={ 'company' } value={ tentativeData['company'] } updateFn={ updateTentativeData } />
+                <EditTextArea label={ "Company Notes:" } dataKey={ 'company-notes' } value={ tentativeData['company-notes'] } updateFn={ updateTentativeData } />
+                <div className="input-div">
+                    <label htmlFor="application-status">Application Status:</label>
+                    <input
+                        type="text"
+                        name="application-status"
+                        defaultValue={tentativeData['application-status']}
+                    />
+                </div>
+                <EditTextArea label={ "Application Notes:" } dataKey={ 'application-notes' } value={ tentativeData['application-notes'] } updateFn={ updateTentativeData } />
             </div>
-            <div className="input-div">
-                <label htmlFor="job-link">Job Link:</label>
-                <input
-                    type="text"
-                    name="job-link"
-                    defaultValue={props.data['job-link']}
-                />
-            </div>
-            <div className="input-div">
-                <label htmlFor="job-notes">Job Notes:</label>
-                <textarea
-                    cols='50'
-                    rows='4'
-                    name="job-notes"
-                    defaultValue={props.data['job-notes']}
-                />
-            </div>
-            <div className="input-div">
-                <label htmlFor="company">Company:</label>
-                <input
-                    type="text"
-                    name="company"
-                    defaultValue={props.data['company']}
-                />
-            </div>
-            <div className="input-div">
-                <label htmlFor="company-notes">Company Notes:</label>
-                <textarea
-                    cols='50'
-                    rows='4'
-                    name="company-notes"
-                    defaultValue={props.data['company-notes']}
-                />
-            </div>
-            <div className="input-div">
-                <label htmlFor="application-status">Application Status:</label>
-                <input
-                    type="text"
-                    name="application-status"
-                    defaultValue={props.data['application-status']}
-                />
-            </div>
-            <div className="input-div">
-                <label htmlFor="application-notes">Application Notes:</label>
-                <textarea
-                    cols='50'
-                    rows='4'
-                    name="application-notes"
-                    defaultValue={props.data['application-notes']}
-                />
+            <div className="application-button-container">
+                <button onClick={() => {
+                    updateDataClick(tentativeData);
+                    changeViewClick();
+                }}>
+                    Save
+                </button>
             </div>
         </>
     )
 }
 
-const DisplayApplication = (props) => {
+const DisplayApplication = ({ data, changeViewClick }) => {
     return(
         <>
-            <TextBox label={ 'Job Title' } text={ props.data['job-title'] }/>
-            <TextBox label={ 'Job Notes' } text={ props.data['job-notes'] } multiline={ true } />
-            <TextBoxLink label={ 'Job Posting' } url={ props.data['job-link'] } />
-            <TextBox label={ 'Company' } text={ props.data['company'] }/>
-            <TextBox label={ 'Company Notes' } text={ props.data['company-notes'] } multiline={ true }/>
-            <TextBox label={ 'Application Status' } text={ props.data['application-status'] }/>
-            <TextBox label={ 'Application Notes' } text={ props.data['application-notes'] } multiline={ true }/>
+            <div className="application-data-div">
+                <TextBox label={ 'Job Title' } text={ data['job-title'] }/>
+                <TextBox label={ 'Job Notes' } text={ data['job-notes'] } multiline={ true } />
+                <TextBoxLink label={ 'Job Posting' } url={ data['job-link'] } />
+                <TextBox label={ 'Company' } text={ data['company'] }/>
+                <TextBox label={ 'Company Notes' } text={ data['company-notes'] } multiline={ true }/>
+                <TextBox label={ 'Application Status' } text={ data['application-status'] }/>
+                <TextBox label={ 'Application Notes' } text={ data['application-notes'] } multiline={ true }/>
+            </div>
+            <div className="application-button-container">
+                <button onClick={() => { changeViewClick(); }}>
+                    Edit
+                </button>
+            </div>
         </>
     )
 }
