@@ -6,9 +6,6 @@ import '../component-css/Application.css';
 import { EditTextArea } from './EditTextArea';
 
 const Application = (props) => {
-    const EDIT_TEXT = "Edit";
-    const SAVE_TEXT = "Save";
-
     const getInitialState = (props) => {
         return {
             'job-title': '' + props.count,
