@@ -6,19 +6,33 @@ import '../component-css/Application.css';
 import EditTextArea from './EditTextArea';
 import EditSelectBar from './EditSelectBar';
 
+/**
+ * Main application element used to both display and edit applications.
+ *
+ * @param {int} index: index of application as stored in local storage.
+ * @param {obj} savedData: object containing saved data from local storage.
+ * @param {callback} updateStorageFn: function used to update local storage with current application data.
+ * @returns React Element.
+ */
 const Application = ({ index, savedData, updateStorageFn }) => {
+    //state used to hold data for applications.
     let [ applicationData, setApplicationData ] = useState(savedData);
+    //state used to decide which application element to display.
     let [ editMode, setEditMode ] = useState(false);
 
+    //callback used to change editMode.
     let changeEditMode = () => {
         setEditMode(!editMode);
     }
 
+    //callback used within the EditApplication button click to update both the application data
+    //in memory and the local storage.
     let updateApplicationData = (data) => {
         setApplicationData(data);
         updateStorageFn(index, data);
     }
 
+    //returns EditApplicaion if editMode, and Display Applicaion elsewise.
     return (
         <div className="application-div">
             {
@@ -30,9 +44,19 @@ const Application = ({ index, savedData, updateStorageFn }) => {
     )
 }
 
+/**
+ * Application element used to display edittable elements used to update the Application Data.
+ *
+ * @param {obj} data: saved application data used to populate fields.
+ * @param {callback} changeViewClick: callback used to change from edit to display applications.
+ * @param {callback} updateDataClick: callback used to update the data stored in memory and in local storage.
+ * @returns EditApplication element.
+ */
 const EditApplication = ({ data, changeViewClick, updateDataClick }) => {
+    //copy of inputed data used for holding the data in the display before save button is clicked.
     const [tentativeData, setTentativeData] = useState(data);
 
+    //callback used in edit elements to update data.
     let updateTentativeData = (dataKey, value) => {
         setTentativeData(prev => ({
             ...prev,
@@ -63,6 +87,13 @@ const EditApplication = ({ data, changeViewClick, updateDataClick }) => {
     )
 }
 
+/**
+ * Application element used to display elements populated with Application data.
+ *
+ * @param {obj} data: saved application data used to populate fields.
+ * @param {callback} changeViewClick: callback used to change from edit to display applications.
+ * @returns DisplayApplication element.
+ */
 const DisplayApplication = ({ data, changeViewClick }) => {
     return(
         <>
