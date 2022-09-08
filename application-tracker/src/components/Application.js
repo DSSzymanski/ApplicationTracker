@@ -5,19 +5,8 @@ import EditTextBox from './EditTextBox';
 import '../component-css/Application.css';
 import { EditTextArea } from './EditTextArea';
 
-const Application = (props) => {
-    const getInitialState = (props) => {
-        return {
-            'job-title': '' + props.count,
-            'job-link': 'www.google.com',
-            'job-notes': "line1 " + props.count + '\n' + 'line2.',
-            'company': 'company',
-            'company-notes': "company-notes",
-            'application-status': "application-status",
-            'application-notes': "application-notes",
-        }
-    }
-    let [ applicationData, setApplicationData ] = useState(getInitialState(props));
+const Application = ({ savedData }) => {
+    let [ applicationData, setApplicationData ] = useState(savedData);
     let [ editMode, setEditMode ] = useState(false);
 
     let changeEditMode = () => {
