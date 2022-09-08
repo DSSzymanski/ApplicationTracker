@@ -1,5 +1,6 @@
 import React from 'react';
 import '../component-css/TextBoxLink.css';
+import '../component-css/TextBox.css';
 
 /**
  * Checks to make sure links start with http so they reach
