@@ -14,3 +14,5 @@ export const EditTextArea = ({ label, dataKey, value, updateFn }) => {
         </div>
     )
 }
+
+export default EditTextArea

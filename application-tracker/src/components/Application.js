@@ -3,7 +3,8 @@ import TextBox from './TextBox';
 import TextBoxLink from './TextBoxLink';
 import EditTextBox from './EditTextBox';
 import '../component-css/Application.css';
-import { EditTextArea } from './EditTextArea';
+import EditTextArea from './EditTextArea';
+import EditSelectBar from './EditSelectBar';
 
 const Application = ({ index, savedData, updateStorageFn }) => {
     let [ applicationData, setApplicationData ] = useState(savedData);
@@ -47,14 +48,7 @@ const EditApplication = ({ data, changeViewClick, updateDataClick }) => {
                 <EditTextArea label={ "Job Notes:" } dataKey={ 'job-notes' } value={ tentativeData['job-notes'] } updateFn={ updateTentativeData } />
                 <EditTextBox label={ "Company:" } dataKey={ 'company' } value={ tentativeData['company'] } updateFn={ updateTentativeData } />
                 <EditTextArea label={ "Company Notes:" } dataKey={ 'company-notes' } value={ tentativeData['company-notes'] } updateFn={ updateTentativeData } />
-                <div className="input-div">
-                    <label htmlFor="application-status">Application Status:</label>
-                    <input
-                        type="text"
-                        name="application-status"
-                        defaultValue={tentativeData['application-status']}
-                    />
-                </div>
+                <EditSelectBar label={ "Application Status" } dataKey={ 'application-status' } value={ tentativeData['application-status'] } updateFn={ updateTentativeData } />
                 <EditTextArea label={ "Application Notes:" } dataKey={ 'application-notes' } value={ tentativeData['application-notes'] } updateFn={ updateTentativeData } />
             </div>
             <div className="application-button-container">
