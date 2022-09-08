@@ -21,6 +21,12 @@ const MainPage = () => {
     setApplications(prev => ([...prev, DEFAULT_EMPTY_APPLICATION]))
   }
 
+  const updateApplication = ( index, value ) => {
+    const tempState = [...applications];
+    tempState[index] = value;
+    setApplications(tempState);
+  }
+
   useEffect(() => {
     const saveApplicationsToLocalStorage = () => {
       localStorage.setItem(APPLICATION_STORAGE_NAME, JSON.stringify(applications));
@@ -47,7 +53,7 @@ const MainPage = () => {
           (applications.length > 0) &&
           applications.map((app, index) => {
             return (
-              <Application key={ index } savedData={ app } />
+              <Application key={ index } index={ index } savedData={ app } updateStorageFn={ updateApplication } />
             )
           })
         }

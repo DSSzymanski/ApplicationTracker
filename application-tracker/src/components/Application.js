@@ -5,7 +5,7 @@ import EditTextBox from './EditTextBox';
 import '../component-css/Application.css';
 import { EditTextArea } from './EditTextArea';
 
-const Application = ({ savedData }) => {
+const Application = ({ index, savedData, updateStorageFn }) => {
     let [ applicationData, setApplicationData ] = useState(savedData);
     let [ editMode, setEditMode ] = useState(false);
 
@@ -15,6 +15,7 @@ const Application = ({ savedData }) => {
 
     let updateApplicationData = (data) => {
         setApplicationData(data);
+        updateStorageFn(index, data);
     }
 
     return (
