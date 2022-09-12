@@ -18,6 +18,7 @@ const EditTextBox = ({ label, dataKey, value, updateFn }) => {
                 className="input-box"
                 type="text"
                 name={ label }
+                id={ label }
                 defaultValue={ value }
                 onChange={ e => updateFn(dataKey, e.target.value) }
             />
