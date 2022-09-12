@@ -13,8 +13,9 @@ import '../component-css/Application.css';
 const EditTextBox = ({ label, dataKey, value, updateFn }) => {
     return (
         <div className="input-div">
-            <label htmlFor={ label }>{ label }</label>
+            <label className='input-label' htmlFor={ label }>{ label }</label>
             <input
+                className="input-box"
                 type="text"
                 name={ label }
                 defaultValue={ value }
