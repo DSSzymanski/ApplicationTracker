@@ -12,11 +12,13 @@ import React from 'react'
 export const EditTextArea = ({ label, dataKey, value, updateFn }) => {
     return (
         <div className="input-div">
-            <label htmlFor={ label }>{ label }</label>
+            <label className='text-box-label' htmlFor={ label }>{ label }</label>
             <textarea
+                className='text-area-box'
                 cols='50'
                 rows='4'
                 name={ label }
+                id={ label }
                 defaultValue={ value }
                 onChange={ e => updateFn(dataKey, e.target.value) }
             />
