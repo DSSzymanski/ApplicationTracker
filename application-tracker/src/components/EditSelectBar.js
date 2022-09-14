@@ -21,7 +21,7 @@ const EditSelectBar = ({ label, dataKey, value, updateFn }) => {
 
     return (
         <div className="input-div">
-            <label htmlFor={ label }>{ label }</label>
+            <label className='select-bar-label' htmlFor={ label }>{ label }</label>
             <select
                 name={ label }
                 id={ label }
