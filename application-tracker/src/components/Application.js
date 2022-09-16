@@ -6,6 +6,17 @@ import '../component-css/Application.css';
 import EditTextArea from './EditTextArea';
 import EditSelectBar from './EditSelectBar';
 
+//object which contains all keys needed to display with empty values
+export const DEFAULT_EMPTY_APPLICATION = {
+    'job-title': '',
+    'job-link': '',
+    'job-notes': '',
+    'company': '',
+    'company-notes': '',
+    'application-status': '',
+    'application-notes': '',
+}
+
 /**
  * Main application element used to both display and edit applications.
  *
@@ -15,8 +26,26 @@ import EditSelectBar from './EditSelectBar';
  * @returns React Element.
  */
 const Application = ({ index, savedData, updateStorageFn }) => {
+    /**
+     * Checks input to make sure the object has all the needed keys for operations within
+     * element.
+     * @param {obj} inputData data to input to make sure all keys needed exist.
+     * @returns object with all needed keys.
+     */
+    let validateData = (inputData) => {
+        if (!savedData) {
+            return DEFAULT_EMPTY_APPLICATION;
+        }
+        for (const dataKey in DEFAULT_EMPTY_APPLICATION) {
+            if (!(dataKey in inputData)) {
+                inputData[dataKey] = '';
+            }
+        }
+        return inputData;
+    }
+
     //state used to hold data for applications.
-    let [ applicationData, setApplicationData ] = useState(savedData);
+    let [ applicationData, setApplicationData ] = useState(validateData(savedData));
     //state used to decide which application element to display.
     let [ editMode, setEditMode ] = useState(false);
 
@@ -28,6 +57,8 @@ const Application = ({ index, savedData, updateStorageFn }) => {
     //callback used within the EditApplication button click to update both the application data
     //in memory and the local storage.
     let updateApplicationData = (data) => {
+        if (typeof index !== Number) { return(null); }
+        if (index < 0) { return(null); }
         setApplicationData(data);
         updateStorageFn(index, data);
     }
@@ -52,7 +83,7 @@ const Application = ({ index, savedData, updateStorageFn }) => {
  * @param {callback} updateDataClick: callback used to update the data stored in memory and in local storage.
  * @returns EditApplication element.
  */
-const EditApplication = ({ data, changeViewClick, updateDataClick }) => {
+export const EditApplication = ({ data, changeViewClick, updateDataClick }) => {
     //copy of inputed data used for holding the data in the display before save button is clicked.
     const [tentativeData, setTentativeData] = useState(data);
 
@@ -94,7 +125,7 @@ const EditApplication = ({ data, changeViewClick, updateDataClick }) => {
  * @param {callback} changeViewClick: callback used to change from edit to display applications.
  * @returns DisplayApplication element.
  */
-const DisplayApplication = ({ data, changeViewClick }) => {
+export const DisplayApplication = ({ data, changeViewClick }) => {
     return(
         <>
             <div className="application-data-div">
