@@ -58,6 +58,58 @@ describe('Tests for DisplayApplication.', () => {
         expect(screen.getByText('Edit')).toBeInTheDocument();
     });
 
+    test("Test display doesn't display keys if not given.", () => {
+        let { data, expected_data } = setup();
+        let test_keys = Object.keys(data);
+        //iterate over all keys
+        for (let test_idx = 0; test_idx < test_keys.length; test_idx++) {
+            //copy data and remove specific key to test against
+            let data_copy = {...data};
+            delete data_copy[test_keys[test_idx]];
+
+            const { unmount } = render(<DisplayApplication data={ data_copy }/>);
+
+            //make sure key that was removed is not present on screen
+            Object.keys(expected_data).map((entry, idx) => {
+                if (idx === test_idx) {
+                    expect(screen.queryByText(entry)).not.toBeInTheDocument();
+                    expect(screen.queryByText(expected_data[entry])).not.toBeInTheDocument();
+                }
+                else {
+                    expect(screen.getByText(entry)).toBeInTheDocument();
+                    expect(screen.getByText(expected_data[entry])).toBeInTheDocument();
+                }
+            })
+            unmount();
+        }
+    });
+
+    test("Test display doesn't display keys if value is empty string.", () => {
+        let { data, expected_data } = setup();
+        let test_keys = Object.keys(data);
+        //iterate over all keys
+        for (let test_idx = 0; test_idx < test_keys.length; test_idx++) {
+            //copy data and set specific key to empty string to test against
+            let data_copy = {...data};
+            data_copy[test_keys[test_idx]] = '';
+
+            const { unmount } = render(<DisplayApplication data={ data_copy }/>);
+
+            //make sure key that was altered is not present on screen
+            Object.keys(expected_data).map((entry, idx) => {
+                if (idx === test_idx) {
+                    expect(screen.queryByText(entry)).not.toBeInTheDocument();
+                    expect(screen.queryByText(expected_data[entry])).not.toBeInTheDocument();
+                }
+                else {
+                    expect(screen.getByText(entry)).toBeInTheDocument();
+                    expect(screen.getByText(expected_data[entry])).toBeInTheDocument();
+                }
+            })
+            unmount();
+        }
+    });
+
     test('Tests that button works as intended when clicked.', () => {
         let { data } = setup();
         let button_clicked = false;
