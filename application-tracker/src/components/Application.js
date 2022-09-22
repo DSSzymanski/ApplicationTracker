@@ -99,11 +99,11 @@ export const EditApplication = ({ data, changeViewClick, updateDataClick }) => {
         <>
             <div className="application-data-div">
                 <EditTextBox label={ "Job Title:" } dataKey={ 'job-title' } value={ tentativeData['job-title'] } updateFn={ updateTentativeData } />
-                <EditTextBox label={ "Job Link:" } dataKey={ 'job-link' } value={ tentativeData['job-link'] } updateFn={ updateTentativeData } />
+                <EditTextBox label={ "Job Posting:" } dataKey={ 'job-link' } value={ tentativeData['job-link'] } updateFn={ updateTentativeData } />
                 <EditTextArea label={ "Job Notes:" } dataKey={ 'job-notes' } value={ tentativeData['job-notes'] } updateFn={ updateTentativeData } />
                 <EditTextBox label={ "Company:" } dataKey={ 'company' } value={ tentativeData['company'] } updateFn={ updateTentativeData } />
                 <EditTextArea label={ "Company Notes:" } dataKey={ 'company-notes' } value={ tentativeData['company-notes'] } updateFn={ updateTentativeData } />
-                <EditSelectBar label={ "Application Status" } dataKey={ 'application-status' } value={ tentativeData['application-status'] } updateFn={ updateTentativeData } />
+                <EditSelectBar label={ "Application Status:" } dataKey={ 'application-status' } value={ tentativeData['application-status'] } updateFn={ updateTentativeData } />
                 <EditTextArea label={ "Application Notes:" } dataKey={ 'application-notes' } value={ tentativeData['application-notes'] } updateFn={ updateTentativeData } />
             </div>
             <div className="application-button-container">
